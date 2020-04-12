@@ -7,7 +7,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@android:color/background_dark"
-    tools:context=".GuestActivity">
+    android:clickable="true"
+    tools:context=".GuestActivity"
+    android:focusable="true">
 
     <EditText
         android:id="@+id/edit_prime"
@@ -30,10 +32,16 @@
         android:layout_gravity="center"
         android:text="@string/check" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_guest"
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/item_grid_guest"/>
+        android:id="@+id/refresh_guest">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_guest"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/item_grid_guest"/>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </LinearLayout>

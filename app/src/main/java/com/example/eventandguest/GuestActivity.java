@@ -12,16 +12,20 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
-public class GuestActivity extends AppCompatActivity implements View.OnClickListener{
+public class GuestActivity extends AppCompatActivity implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener{
 
     EditText editPrime;
     Button btnCheck;
 
     RecyclerView rv;
     private GridGuestAdapter gridGuestAdapter;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private GuestViewModel guestViewModel;
 
     public static String EXTRA_SELECTED_VALUE = "extra_selected_value";
     public static String  EXTRA_SELECTED_ID = "extra_selected_id";
@@ -42,7 +46,7 @@ public class GuestActivity extends AppCompatActivity implements View.OnClickList
         rv.setLayoutManager(new GridLayoutManager(this, 2));
         gridGuestAdapter = new GridGuestAdapter();
         gridGuestAdapter.notifyDataSetChanged();
-        GuestViewModel guestViewModel = ViewModelProviders.of(this).get(GuestViewModel.class);
+        guestViewModel = ViewModelProviders.of(this).get(GuestViewModel.class);
         guestViewModel.setGuest();
         guestViewModel.getGuests().observe(this, getGuest);
 
@@ -52,6 +56,19 @@ public class GuestActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onItemClicked(Guest data) {
                 showSelectedGuest(data);
+            }
+        });
+
+        swipeRefreshLayout = findViewById(R.id.refresh_guest);
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary, android.R.color.holo_green_dark, android.R.color.holo_orange_dark, android.R.color.holo_blue_dark);
+
+        swipeRefreshLayout.post(new Runnable(){
+
+            @Override
+            public void run() {
+                //swipeRefreshLayout.setRefreshing(true);
+                Objects.requireNonNull(rv.getAdapter()).notifyDataSetChanged();
             }
         });
     }
@@ -112,5 +129,14 @@ public class GuestActivity extends AppCompatActivity implements View.OnClickList
             i+=6;
         }
         return true;
+    }
+
+    @Override
+    public void onRefresh() {
+        swipeRefreshLayout.setRefreshing(true);
+        guestViewModel.setGuest();
+        guestViewModel.getGuests().observe(this, getGuest);
+        Objects.requireNonNull(rv.getAdapter()).notifyDataSetChanged();
+        swipeRefreshLayout.setRefreshing(false);
     }
 }
