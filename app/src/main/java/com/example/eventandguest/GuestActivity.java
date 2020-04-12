@@ -2,6 +2,7 @@ package com.example.eventandguest;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,24 +13,29 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class GuestActivity extends AppCompatActivity implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener{
+public class GuestActivity extends AppCompatActivity implements View.OnClickListener, SwipyRefreshLayout.OnRefreshListener{
 
     EditText editPrime;
     Button btnCheck;
 
     RecyclerView rv;
     private GridGuestAdapter gridGuestAdapter;
-    private SwipeRefreshLayout swipeRefreshLayout;
+    private SwipyRefreshLayout swipyRefreshLayout;
     private GuestViewModel guestViewModel;
+    private int page = 1;
 
     public static String EXTRA_SELECTED_VALUE = "extra_selected_value";
     public static String  EXTRA_SELECTED_ID = "extra_selected_id";
     public static int RESULT_CODE = 800;
+    public static int FIRST_PAGE = 1;
+    public static int LAST_PAGE = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,18 +65,10 @@ public class GuestActivity extends AppCompatActivity implements View.OnClickList
             }
         });
 
-        swipeRefreshLayout = findViewById(R.id.refresh_guest);
-        swipeRefreshLayout.setOnRefreshListener(this);
-        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary, android.R.color.holo_green_dark, android.R.color.holo_orange_dark, android.R.color.holo_blue_dark);
-
-        swipeRefreshLayout.post(new Runnable(){
-
-            @Override
-            public void run() {
-                //swipeRefreshLayout.setRefreshing(true);
-                Objects.requireNonNull(rv.getAdapter()).notifyDataSetChanged();
-            }
-        });
+        swipyRefreshLayout = findViewById(R.id.refresh_guest);
+        swipyRefreshLayout.setOnRefreshListener(this);
+        swipyRefreshLayout.setColorSchemeResources(R.color.colorPrimary, android.R.color.holo_green_dark, android.R.color.holo_orange_dark, android.R.color.holo_blue_dark);
+        swipyRefreshLayout.setDirection(SwipyRefreshLayoutDirection.BOTH);
     }
 
     private Observer<ArrayList<Guest>> getGuest = new Observer<ArrayList<Guest>>() {
@@ -93,8 +91,8 @@ public class GuestActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View view) {
         if(view.getId() == R.id.btn_check_prime);
-        int month = Integer.parseInt(editPrime.getText().toString());
         String message;
+        int month = Integer.parseInt(editPrime.getText().toString());
         if(month >= 1 && month <= 12) {
             boolean result = isPrime(month);
             if (result) {
@@ -132,11 +130,21 @@ public class GuestActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    public void onRefresh() {
-        swipeRefreshLayout.setRefreshing(true);
-        guestViewModel.setGuest();
-        guestViewModel.getGuests().observe(this, getGuest);
-        Objects.requireNonNull(rv.getAdapter()).notifyDataSetChanged();
-        swipeRefreshLayout.setRefreshing(false);
+    public void onRefresh(SwipyRefreshLayoutDirection direction) {
+        String str_direction = (direction == SwipyRefreshLayoutDirection.TOP ? "top" : "bottom");
+        Log.d("GuestActivity refresh", "Refresh triggered at "
+                + str_direction);
+        if (str_direction.equals("top")){
+            Objects.requireNonNull(rv.getAdapter()).notifyDataSetChanged();
+        }else{
+            if(page < LAST_PAGE) {
+                Log.d("masuk", "masuk");
+                guestViewModel.addGuest(page+1);
+                guestViewModel.getGuests().observe(this, getGuest);
+                Objects.requireNonNull(rv.getAdapter()).notifyDataSetChanged();
+                page += 1;
+            }
+        }
+        swipyRefreshLayout.setRefreshing(false);
     }
 }
