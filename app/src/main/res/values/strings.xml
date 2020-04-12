@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Event and Guest</string>
+    <string name="type_name_here">Type name here</string>
+    <string name="next">Next</string>
+    <string name="choose_guest">Choose Guest</string>
+    <string name="choose_event">Choose Event</string>
+    <string name="image_description">image description</string>
+</resources>
