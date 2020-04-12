@@ -1,11 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/guest_activity"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/background_dark"
     tools:context=".GuestActivity">
+
+    <EditText
+        android:id="@+id/edit_prime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_gravity="center"
+        android:autofillHints="Please type month number"
+        android:hint="@string/prime_number_month_check"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/btn_check_prime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:text="@string/check" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_guest"
@@ -13,4 +36,4 @@
         android:layout_height="match_parent"
         tools:listitem="@layout/item_grid_guest"/>
 
-</RelativeLayout>
+</LinearLayout>

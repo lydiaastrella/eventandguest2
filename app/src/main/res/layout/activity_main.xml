@@ -28,6 +28,7 @@
         android:autofillHints="Please type your name here"
         android:hint="@string/type_name_here"
         android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
         android:inputType="text" />
 
     <Button
@@ -38,5 +39,26 @@
         android:gravity="center"
         android:layout_gravity="center"
         android:text="@string/next" />
+
+    <EditText
+        android:id="@+id/edit_palindrom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_gravity="center"
+        android:autofillHints="Please type your palindrome sentence here"
+        android:hint="@string/palindrome_check"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:inputType="text" />
+
+    <Button
+        android:id="@+id/btn_check_palindrom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:text="@string/check" />
 
 </LinearLayout>

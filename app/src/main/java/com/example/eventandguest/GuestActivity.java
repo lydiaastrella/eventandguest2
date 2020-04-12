@@ -2,7 +2,11 @@ package com.example.eventandguest;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -11,7 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class GuestActivity extends AppCompatActivity {
+public class GuestActivity extends AppCompatActivity implements View.OnClickListener{
+
+    EditText editPrime;
+    Button btnCheck;
 
     RecyclerView rv;
     private GridGuestAdapter gridGuestAdapter;
@@ -24,6 +31,10 @@ public class GuestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guest);
+
+        editPrime = findViewById(R.id.edit_prime);
+        btnCheck = findViewById(R.id.btn_check_prime);
+        btnCheck.setOnClickListener(this);
 
         rv = findViewById(R.id.rv_guest);
         rv.setHasFixedSize(true);
@@ -62,4 +73,44 @@ public class GuestActivity extends AppCompatActivity {
         finish();
     }
 
+    @Override
+    public void onClick(View view) {
+        if(view.getId() == R.id.btn_check_prime);
+        int month = Integer.parseInt(editPrime.getText().toString());
+        String message;
+        if(month >= 1 && month <= 12) {
+            boolean result = isPrime(month);
+            if (result) {
+                message = getString(R.string.prime_message);
+            } else {
+                message = getString(R.string.not_prime_message);
+            }
+        }else{
+            message = getString(R.string.month_not_valid);
+        }
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(message).setTitle(R.string.prime_checker);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private boolean isPrime(int month){
+        if(month == 1){
+            return false;
+        }else if (month <=3){
+            return true;
+        }
+        if (month % 2 == 0 || month % 3 == 0){
+            return false;
+        }
+
+        int i = 5;
+        while (i*i<=month){
+            if(month % i == 0){
+                return false;
+            }
+            i+=6;
+        }
+        return true;
+    }
 }

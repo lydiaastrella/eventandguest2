@@ -5,4 +5,14 @@
     <string name="choose_guest">Choose Guest</string>
     <string name="choose_event">Choose Event</string>
     <string name="image_description">image description</string>
+    <string name="palindrome_checker">Palindrome Checker</string>
+    <string name="not_palindrome">not palindrome</string>
+    <string name="isPalindrome">isPalindrome</string>
+    <string name="palindrome_check">Palindrome Check</string>
+    <string name="check">check</string>
+    <string name="prime_number_month_check">Prime number month check</string>
+    <string name="prime_message">The month number is a prime number</string>
+    <string name="not_prime_message">The month number is not a prime number</string>
+    <string name="prime_checker">Prime Checker</string>
+    <string name="month_not_valid">The month number you entered is not valid. Month number must be greater than 0 and less than 13</string>
 </resources>
