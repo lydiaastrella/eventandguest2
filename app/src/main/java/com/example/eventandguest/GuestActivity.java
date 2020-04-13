@@ -34,7 +34,6 @@ public class GuestActivity extends AppCompatActivity implements View.OnClickList
     public static String EXTRA_SELECTED_VALUE = "extra_selected_value";
     public static String  EXTRA_SELECTED_ID = "extra_selected_id";
     public static int RESULT_CODE = 800;
-    public static int FIRST_PAGE = 1;
     public static int LAST_PAGE = 2;
 
     @Override
@@ -74,6 +73,9 @@ public class GuestActivity extends AppCompatActivity implements View.OnClickList
     private Observer<ArrayList<Guest>> getGuest = new Observer<ArrayList<Guest>>() {
         @Override
         public void onChanged(ArrayList<Guest> guestItems) {
+            if (guestItems != null) {
+                gridGuestAdapter.setData(guestItems);
+            }
         }
     };
 

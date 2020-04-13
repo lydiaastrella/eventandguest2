@@ -10,8 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".EmptyStateActivity"></activity>
-        <activity android:name=".GuestActivity" />
-        <activity android:name=".EventActivity" />
+        <activity android:name=".GuestActivity"
+            android:parentActivityName=".SecondActivity"/>
+        <activity android:name=".EventActivity"
+            android:parentActivityName=".SecondActivity"/>
         <activity android:name=".SecondActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

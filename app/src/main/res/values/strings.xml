@@ -19,4 +19,5 @@
     <string name="no_connection_message">It seems like your device is not connected to internet. Please try again later.</string>
     <string name="selamat_datang">Selamat Datang!</string>
     <string name="sertakan_gambar_profil_anda_untuk_melengkapi_profil">Sertakan gambar profil Anda untuk melengkapi profil.</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla viverra pharetra velit ac vulputate. Phasellus molestie ipsum sit amet ex gravida, tempor rhoncus libero tempor. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam suscipit finibus nunc eu hendrerit.</string>
 </resources>

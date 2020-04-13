@@ -5,9 +5,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_dark"
-    android:padding="25dp"
+    android:background="@android:color/white"
+    android:padding="5dp"
     tools:context=".EventActivity">
+
+    <!--<androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_event"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/white"
+        app:titleTextColor="@android:color/holo_green_dark"/>-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_category"
