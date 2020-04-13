@@ -58,25 +58,22 @@ public class GuestActivity extends AppCompatActivity implements View.OnClickList
 
         rv.setAdapter(gridGuestAdapter);
 
+        swipyRefreshLayout = findViewById(R.id.refresh_guest);
+        swipyRefreshLayout.setOnRefreshListener(this);
+        swipyRefreshLayout.setColorSchemeResources(R.color.colorPrimary, android.R.color.holo_green_dark, android.R.color.holo_orange_dark, android.R.color.holo_blue_dark);
+        swipyRefreshLayout.setDirection(SwipyRefreshLayoutDirection.BOTH);
+
         gridGuestAdapter.setOnItemClickCallback(new GridGuestAdapter.OnItemClickCallback() {
             @Override
             public void onItemClicked(Guest data) {
                 showSelectedGuest(data);
             }
         });
-
-        swipyRefreshLayout = findViewById(R.id.refresh_guest);
-        swipyRefreshLayout.setOnRefreshListener(this);
-        swipyRefreshLayout.setColorSchemeResources(R.color.colorPrimary, android.R.color.holo_green_dark, android.R.color.holo_orange_dark, android.R.color.holo_blue_dark);
-        swipyRefreshLayout.setDirection(SwipyRefreshLayoutDirection.BOTH);
     }
 
     private Observer<ArrayList<Guest>> getGuest = new Observer<ArrayList<Guest>>() {
         @Override
         public void onChanged(ArrayList<Guest> guestItems) {
-            if (guestItems != null) {
-                gridGuestAdapter.setData(guestItems);
-            }
         }
     };
 
@@ -91,17 +88,22 @@ public class GuestActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View view) {
         if(view.getId() == R.id.btn_check_prime);
-        String message;
-        int month = Integer.parseInt(editPrime.getText().toString());
-        if(month >= 1 && month <= 12) {
-            boolean result = isPrime(month);
-            if (result) {
-                message = getString(R.string.prime_message);
+        String message, prime;
+        prime = editPrime.getText().toString();
+        if (! prime.equals("")) {
+            int month = Integer.parseInt(prime);
+            if (month >= 1 && month <= 12) {
+                boolean result = isPrime(month);
+                if (result) {
+                    message = getString(R.string.prime_message);
+                } else {
+                    message = getString(R.string.not_prime_message);
+                }
             } else {
-                message = getString(R.string.not_prime_message);
+                message = getString(R.string.month_not_valid);
             }
         }else{
-            message = getString(R.string.month_not_valid);
+            message = getString(R.string.mont_number_null);
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(message).setTitle(R.string.prime_checker);

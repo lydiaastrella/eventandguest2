@@ -15,4 +15,6 @@
     <string name="not_prime_message">The month number is not a prime number</string>
     <string name="prime_checker">Prime Checker</string>
     <string name="month_not_valid">The month number you entered is not valid. Month number must be greater than 0 and less than 13</string>
+    <string name="mont_number_null">Please enter the month number first</string>
+    <string name="no_connection_message">It seems like your device is not connected to internet. Please try again later.</string>
 </resources>
