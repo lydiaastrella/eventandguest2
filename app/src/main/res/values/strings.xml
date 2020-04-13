@@ -17,4 +17,6 @@
     <string name="month_not_valid">The month number you entered is not valid. Month number must be greater than 0 and less than 13</string>
     <string name="mont_number_null">Please enter the month number first</string>
     <string name="no_connection_message">It seems like your device is not connected to internet. Please try again later.</string>
+    <string name="selamat_datang">Selamat Datang!</string>
+    <string name="sertakan_gambar_profil_anda_untuk_melengkapi_profil">Sertakan gambar profil Anda untuk melengkapi profil.</string>
 </resources>
